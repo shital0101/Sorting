@@ -1,0 +1,65 @@
+#include<stdio.h>
+void accept(int a[100],int n)
+{
+   int i;
+   printf("\n enter the n numbers in array:");
+     for(i=0;i<n;i++)
+   scanf("%d",&a[i]);
+}
+void display(int a[100],int n)
+{
+   int i;
+   printf("\n are elements are:");
+    for(i=0;i<n;i++)
+   printf("%d\t",a[i]);
+}
+int quicksort(int a[100],int start,int end)
+{
+   int pivot,next,prev,t;
+   pivot=a[start];
+   next=start+1;
+   prev=end;
+
+    do
+   {
+     while((a[next]<pivot)&&(next<end))
+       {
+          next++;
+       }
+     while((a[prev]>pivot)&&(prev>start))
+       {
+          prev--;
+        }
+          if(next<prev)
+           {
+              t=a[prev];
+             a[prev]=a[next];
+             a[next]=t;
+           }
+        }while(next<prev);
+
+        a[start]=a[prev];
+        a[prev]=pivot;
+
+         return prev;
+}
+void divide(int a[100],int start,int end)
+{
+     int pos;
+       if(start<end)
+        {
+           pos=quicksort(a,start,end);
+           divide(a,start,pos-1);
+           divide(a,pos+1,end);
+         }
+}
+int main()
+{
+    int a[100],n;
+    printf("\n enter the limit:");
+    scanf("%d",&n);
+
+    accept(a,n);
+    divide(a,0,n-1);
+    display(a,n);
+}
